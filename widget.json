@@ -1,0 +1,45 @@
+{
+  "name": "Verification: Email",
+  "package": "com.fliplet.email-validation",
+  "version": "2.0.0",
+  "icon": "img/icon.png",
+  "tags": ["type:component", "category:security"],
+  "provider_only": false,
+  "html_tag": "div",
+  "providers": [
+    "com.fliplet.link",
+    "com.fliplet.validation-manager"
+  ],
+  "interface": {
+    "dependencies": [
+      "fliplet-core",
+      "handlebars",
+      "fliplet-datasources",
+      "fliplet-studio-ui",
+      "bootstrap",
+      "tinymce"
+    ],
+    "assets": [
+      "js/interface.js",
+      "css/interface.css"
+    ]
+  },
+  "build": {
+    "dependencies": [
+      "vue.js",
+      "fliplet-core",
+      "bootstrap-css",
+      "handlebars",
+      "fliplet-datasources",
+      "font-awesome"
+    ],
+    "assets": [
+      "js/build.js",
+      "css/build.css"
+    ]
+  },
+  "references": [
+    "action.page:page",
+    "validation.dataSourceQuery.dataSourceId:dataSource"
+  ]
+}

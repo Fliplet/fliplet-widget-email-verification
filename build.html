@@ -1,0 +1,51 @@
+{{#if validation}}
+<div data-email-verification-id="{{id}}" data-email-verification-uuid="{{uuid}}" class="content-wrapper fl-email-verification" v-bind:class="{ 'device-offline': deviceOffline }">
+  <div class="verfication-offline">Your device is offline</div>
+  <div class="state" v-bind:class="{ start: loading, past: verifyCode || confirmation, present: auth, 'has-code': storedEmail}" data-state="auth">
+    <h2 class="aligncenter">Authentication</h2>
+    <p>Authenticate your email address below to gain access to the app.</p>
+    <div class="form-group" v-bind:class="{ 'has-error': emailError}">
+      <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
+    </div>
+    <p class="email-error text-danger">Please enter a valid email.</p>
+    <button v-on:click="sendValidation" class="btn btn-primary verify-identity" v-bind:class="{ disabled: disableButton }">\{{ sendValidationLabel }}</button>
+    <button v-if="storedEmail" v-on:click="showVerify" class="btn btn-link have-code">I have an authentication code</button>
+  </div>
+
+  <div class="state" v-bind:class="{ past: confirmation, present: verifyCode, future: loading || auth, 'new-pin': resentCode }" data-state="verify-code">
+    <h2>Verify your email address</h2>
+    <template v-if="type === 'email'">
+        <p>Enter the authentication code that was sent to <span class="input-email">\{{ storedEmail }}</span>.</p>
+      </template>
+    <template v-if="type === 'sms'">
+        <p>Enter the authentication code that was sent to the phone number associated with <span class="input-email">\{{ storedEmail }}</span>.</p>
+      </template>
+    <div class="form-group input-wrapper" v-bind:class="{ 'has-error': codeError}">
+      <input type="text" v-model="code" class="verify_pin form-control" placeholder="Enter authentication code">
+      <span v-on:click="back" class="fa fa-chevron-left back"></span>
+    </div>
+    <p class="pin-error text-danger">You entered the wrong authentication code or it might have expired.
+      <br>Try again or tap <i>Resend authentication code</i>.</p>
+    <button v-on:click="validate" class="btn btn-primary verify-code">Verify</button>
+    <button v-on:click="resendCode" class="btn btn-link resend-code">Resend authentication code</button>
+    <p class="pin-resent text-success">A new authentication code was sent to your email.</p>
+  </div>
+
+  <div class="state" v-bind:class="{ past: verifyCode, present: confirmation, future: loading || auth || verifyCode }" data-state="confirmation">
+    <h2>Welcome</h2>
+    <p>You have been authenticated and you can now continue to the app.</p>
+    <button class="btn btn-primary lock_continue" v-on:click="redirect">Continue</button>
+  </div>
+</div>
+{{else}}
+<div class="content-wrapper placeholder">
+  <div class="state present" data-state="auth">
+    <h2 class="aligncenter">Authentication</h2>
+    <p>Authenticate your email address below to gain access to the app.</p>
+    <div class="form-group">
+      <input type="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
+    </div>
+    <button class="btn btn-primary disabled" disabled>Authenticate</button>
+  </div>
+</div>
+{{/if}}

@@ -1,0 +1,243 @@
+/* Buttons */
+.btn-primary {
+	display: block;
+	clear: both;
+	width: 100%;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 24px;
+	border: none;
+	text-align: center;
+	cursor: pointer;
+	border-radius: 6px;
+}
+
+.btn-secondary {
+	display: block;
+	clear: both;
+	width: 100%;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 24px;
+	border: none;
+	border-radius: 6px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.btn-primary:focus,
+.btn-primary:hover,
+.btn-secondary:focus,
+.btn-secondary:hover,
+.btn:active:focus {
+	outline: none;
+}
+
+.btn-danger {
+	display: block;
+	clear: both;
+	width: 100%;
+	padding: 10px 16px;
+	font-size: 18px;
+	line-height: 1.33;
+	border: none;
+	border-radius: 6px;
+	text-align: center;
+	cursor: pointer;
+}
+
+.btn-danger:active,
+.btn-danger:active:focus,
+.btn-danger:active:hover,
+.btn-danger:focus,
+.btn-danger:hover {
+	color: #FFF;
+	background-color: #c9302c;
+	border-color: #c9302c;
+	outline: none;
+}
+@media (min-width:640px) {
+	.btn-primary,
+	.btn-secondary {
+		clear: none;
+		display: inline-block;
+		width: auto;
+		max-width: 100%;
+	}
+}
+
+.btn-link,
+a {
+	text-decoration: underline;
+}
+
+.btn.disabled {
+	pointer-events: none;
+	opacity: 0.65;
+}
+
+.content-wrapper {
+	position: relative;
+	overflow: hidden;
+	margin-bottom: 30px;
+}
+
+.content-wrapper.placeholder {
+	opacity: 0.5;
+	cursor: pointer;
+	-webkit-user-select: none !important;
+	-ms-user-select: none !important;
+	user-select: none !important;
+	-webkit-user-modify: read-only !important;
+}
+
+.content-wrapper .state {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	opacity: 0;
+	pointer-events: none;
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+.content-wrapper.placeholder .state {
+	position: relative;
+}
+
+.content-wrapper .state.past {
+	-webkit-transform: translate3d(-105%, 0, 0);
+	transform: translate3d(-105%, 0, 0);
+	-webkit-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.content-wrapper .state.present {
+	opacity: 1;
+	pointer-events: all;
+	-webkit-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.content-wrapper .state.future {
+	-webkit-transform: translate3d(105%, 0, 0);
+	transform: translate3d(105%, 0, 0);
+	-webkit-transition: all 0.25s ease;
+	transition: all 0.25s ease;
+}
+
+.state p {
+	margin: 30px 0 20px;
+}
+
+.state p + p {
+	margin: -10px 0 20px;
+}
+
+.state .input-wrapper {
+	position: relative;
+}
+
+.state[data-state="verify-code"] input.form-control {
+	padding-left: 45px;
+}
+
+.state .back {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	z-index: 1;
+	height: 24px;
+	line-height: 24px;
+	width: 34px;
+	font-size: 16px;
+	border-right: 1px solid #337ab7;
+	color: #333333;
+	margin-top: -12px;
+	cursor: pointer;
+}
+
+.state input.form-control {
+	border: 1px solid #e5e5e5;
+	border-radius: 6px;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	-webkit-appearance: none;
+	height: 45px;
+}
+
+.state input.form-control:focus {
+	border: 1px solid #337ab7;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.state .has-error input.form-control {
+	border-color: #a94442;
+}
+
+.state .has-error input.form-control:focus {
+	box-shadow: none;
+}
+
+[data-state="auth"] .email-error,
+[data-state="verify-code"] .pin-error {
+	display: none;
+	margin: 5px 0 10px;
+}
+
+.form-group.has-error + .email-error,
+.form-group.has-error + .pin-error {
+	display: block;
+}
+
+.state .btn {
+	margin: 20px auto 0;
+	display: block;
+}
+
+.state .input-email {
+	color: #333;
+}
+
+.state .note {
+	margin: 10px 0;
+	font-size: 0.9em;
+	opacity: 0.5;
+}
+
+.state .have-code {
+	visibility: hidden;
+}
+
+.state.has-code .have-code {
+	visibility: visible;
+}
+
+.state .pin-resent {
+	display: none;
+	margin: 5px 0 0;
+}
+
+.state.new-pin .pin-resent {
+	display: block;
+}
+/* OFFLINE STATUS */
+.verfication-offline {
+	display: none;
+	position: absolute;
+	width: 100%;
+	background-color: #F44336;
+	color: #fff;
+	text-align: center;
+}
+
+.content-wrapper.device-offline .verfication-offline {
+	display: block;
+}
+
+.content-wrapper.device-offline .btn {
+	pointer-events: none;
+	opacity: 0.4;
+}
+/* END OFFLINE STATUS */

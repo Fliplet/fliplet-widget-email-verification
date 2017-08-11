@@ -121,6 +121,12 @@ Fliplet().then(function() {
                   Fliplet.App.Storage.set('fl-chat-auth-email', vmData.email);
                   Fliplet.App.Storage.set('fl-email-verification', entry);
                   Fliplet.Profile.set('email', vmData.email);
+
+                  // Trigger hook
+                  Fliplet.Hooks.run('onUserVerified', { entry: entry });
+
+                  // Setting session
+                  Fliplet.Session.get();
                 })
                 .catch(function(error) {
                   vmData.codeError = true;

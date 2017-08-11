@@ -31,7 +31,8 @@
       "bootstrap-css",
       "handlebars",
       "fliplet-datasources",
-      "font-awesome"
+      "font-awesome",
+      "fliplet-session"
     ],
     "assets": [
       "js/build.js",

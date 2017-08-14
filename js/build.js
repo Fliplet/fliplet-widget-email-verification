@@ -206,37 +206,37 @@ Fliplet().then(function() {
       watch: {
         auth: function(newVal) {
           if (newVal) {
-            this.changeState('auth');
+            app.changeState('auth');
           }
         },
         verifyCode: function(newVal) {
           if (newVal) {
-            this.changeState('verify-code');
+            app.changeState('verify-code');
           }
         },
         confirmation: function(newVal) {
           if (newVal) {
-            this.changeState('confirmation');
+            app.changeState('confirmation');
           }
         },
         emailError: function(newVal) {
           if (newVal) {
             setTimeout(function() {
-              this.changeState('auth');
+              app.changeState('auth');
             }, 0);
           }
         },
         codeError: function(newVal) {
           if (newVal) {
             setTimeout(function() {
-              this.changeState('verify-code');
+              app.changeState('verify-code');
             }, 0);
           }
         },
         resentCode: function(newVal) {
           if (newVal) {
             setTimeout(function() {
-              this.changeState('verify-code');
+              app.changeState('verify-code');
             }, 0);
           }
         }

@@ -7,7 +7,12 @@
     <div class="form-group" v-bind:class="{ 'has-error': emailError}">
       <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
     </div>
-    <p class="email-error text-danger">Please enter a valid email.</p>
+    <template v-if="emailError">
+      <p class="email-error text-danger">Please enter a valid email.</p>
+    </template>
+    <template v-if="securityError">
+      <p class="email-error text-danger">\{{ securityError }}</p>
+    </template>
     <button v-on:click="sendValidation" class="btn btn-primary verify-identity" v-bind:class="{ disabled: disableButton }">\{{ sendValidationLabel }}</button>
     <button v-if="storedEmail" v-on:click="showVerify" class="btn btn-link have-code">I have an authentication code</button>
   </div>

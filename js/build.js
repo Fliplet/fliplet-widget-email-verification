@@ -46,7 +46,8 @@ Fliplet().then(function() {
       widgetId: widgetId,
       disableButton: false,
       type: type,
-      deviceOffline: false
+      deviceOffline: false,
+      securityError: undefined
     };
 
     var app = new Vue({
@@ -106,20 +107,22 @@ Fliplet().then(function() {
                 code: vmData.code
               };
               where[columns[type + 'Match']] = vmData.email;
-              
+
               Fliplet.Session.get()
                 .then(function() {
                   dataSource.validate({
-                    type: type,
-                    where: where
-                  })
+                      type: type,
+                      where: where
+                    })
                     .then(function(entry) {
                       return Promise.all([
                         Fliplet.App.Storage.set('fl-chat-source-id', entry.dataSourceId),
                         Fliplet.App.Storage.set('fl-chat-auth-email', vmData.email),
                         Fliplet.App.Storage.set('fl-email-verification', entry),
                         Fliplet.Profile.set('email', vmData.email),
-                        Fliplet.Hooks.run('onUserVerified', { entry: entry })
+                        Fliplet.Hooks.run('onUserVerified', {
+                          entry: entry
+                        })
                       ]);
                     })
                     .then(function() {
@@ -132,7 +135,7 @@ Fliplet().then(function() {
                       vmData.codeError = true;
                       vmData.resentCode = false;
                     });
-                })
+                });
             });
         },
         showVerify: function() {
@@ -150,7 +153,7 @@ Fliplet().then(function() {
               dataSource.sendValidation({
                 type: type,
                 where: where
-              })
+              });
               vmData.codeError = false;
               vmData.resentCode = true;
             });
@@ -196,6 +199,11 @@ Fliplet().then(function() {
             vmData.email = email;
             vmData.storedEmail = email;
           });
+
+        // Check if there are errors from SAML2 features
+        if (Fliplet.Navigate.query.error) {
+          vmData.securityError = Fliplet.Navigate.query.error;
+        }
 
         // Online/ Offline handlers
         Fliplet.Navigator.onOnline(function() {

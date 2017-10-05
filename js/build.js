@@ -116,9 +116,11 @@ Fliplet().then(function() {
                     })
                     .then(function(entry) {
                       return Promise.all([
-                        Fliplet.App.Storage.set('fl-chat-source-id', entry.dataSourceId),
-                        Fliplet.App.Storage.set('fl-chat-auth-email', vmData.email),
-                        Fliplet.App.Storage.set('fl-email-verification', entry),
+                        Fliplet.App.Storage.set({
+                          'fl-chat-source-id': entry.dataSourceId,
+                          'fl-chat-auth-email': vmData.email,
+                          'fl-email-verification': entry
+                        }),
                         Fliplet.Profile.set('email', vmData.email),
                         Fliplet.Hooks.run('onUserVerified', {
                           entry: entry

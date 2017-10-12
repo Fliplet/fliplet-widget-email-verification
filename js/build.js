@@ -55,6 +55,10 @@ Fliplet().then(function() {
       data: vmData,
       methods: {
         redirect: function() {
+          if (Fliplet.Env.get('disableSecurity')) {
+            return;
+          }
+
           // Redirect
           if (data.action) {
             // The time out is to prevent weird transitions between screens on mobile
@@ -183,9 +187,10 @@ Fliplet().then(function() {
         // Check if user is already verified
         Fliplet.App.Storage.get('fl-email-verification')
           .then(function(value) {
-            if (!value) {
+            if (!value || Fliplet.Env.get('disableSecurity')) {
               return;
             }
+
             setTimeout(function() {
               Fliplet.Navigate.to(data.action);
             }, 1000);

@@ -185,16 +185,16 @@ Fliplet().then(function() {
         }, 500);
 
         // Check if user is already verified
-        Fliplet.App.Storage.get('fl-email-verification')
-          .then(function(value) {
-            if (!value || Fliplet.Env.get('disableSecurity')) {
-              return;
+        if (!Fliplet.Env.get('disableSecurity')) {
+          Fliplet.User.getCachedSession()
+          .then(function(session) {
+            if (session && session.server && session.server.passports && session.server.passports.dataSource) {
+              setTimeout(function() {
+                Fliplet.Navigate.to(data.action);
+              }, 1000);
             }
-
-            setTimeout(function() {
-              Fliplet.Navigate.to(data.action);
-            }, 1000);
           });
+        }
 
         // Check if user was already around...
         Fliplet.App.Storage.get('user-email')

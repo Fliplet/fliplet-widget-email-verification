@@ -4,7 +4,10 @@ Fliplet().then(function() {
     var widgetId = $el.data('email-verification-id');
     var data = Fliplet.Widget.getData(widgetId) || {};
 
-    var dataSourceId = data.validation.dataSourceQuery.dataSourceId;
+    var dataSourceId = data && data.validation && data.validation.dataSourceQuery && data.validation.dataSourceQuery.dataSourceId;
+    if (!dataSourceId) {
+      return;
+    }
     var type = 'email';
     var columns = data.validation.dataSourceQuery.columns;
 

@@ -1,4 +1,4 @@
-{{#if validation}}
+{{#if validation.dataSourceQuery.dataSourceId}}
 <div data-email-verification-id="{{id}}" data-email-verification-uuid="{{uuid}}" class="content-wrapper fl-email-verification" v-bind:class="{ 'device-offline': deviceOffline }">
   <div class="verfication-offline">Your device is offline</div>
   <div class="state" v-bind:class="{ start: loading, past: verifyCode || confirmation, present: auth, 'has-code': storedEmail}" data-state="auth">

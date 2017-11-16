@@ -63,6 +63,15 @@ validationProvider.then(function(result) {
 });
 
 function save(notifyComplete) {
+  var dataSourceId = data && data.validation && data.validation.dataSourceQuery && data.validation.dataSourceQuery.dataSourceId;
+  var emailColumn = data && data.validation && data.validation.dataSourceQuery && data.validation.dataSourceQuery.columns && data.validation.dataSourceQuery.columns.emailMatch;
+  if (!dataSourceId || !emailColumn) {
+     return Fliplet.Navigate.popup({
+      popupMessage: '- Please select a data source and email column.',
+      popupTitle: 'Invalid configuration'
+    });
+  }
+  
   // Get and save values to data
   Fliplet.Widget.save(data).then(function() {
     if (notifyComplete) {

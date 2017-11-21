@@ -58,10 +58,6 @@ Fliplet().then(function() {
       data: vmData,
       methods: {
         redirect: function() {
-          if (Fliplet.Env.get('disableSecurity')) {
-            return;
-          }
-
           // Redirect
           if (data.action) {
             // The time out is to prevent weird transitions between screens on mobile

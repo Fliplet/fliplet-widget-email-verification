@@ -168,7 +168,11 @@ Fliplet().then(function() {
           vmData.verifyCode = false;
         },
         changeState: function(state) {
-          calculateElHeight($(this.$el).find('.state[data-state=' + state + ']'));
+          var $vm = this;
+          setTimeout(function nextTick() {
+            // Wait for keyboard to be dismissed before calculating element height
+            calculateElHeight($($vm.$el).find('.state[data-state=' + state + ']'));
+          }, 0);
         }
       },
       mounted: function() {

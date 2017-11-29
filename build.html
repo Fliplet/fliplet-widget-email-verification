@@ -4,7 +4,7 @@
   <div class="state" v-bind:class="{ start: loading, past: verifyCode || confirmation, present: auth, 'has-code': storedEmail}" data-state="auth">
     <form v-on:submit.prevent="sendValidation">
       <h2 class="aligncenter">Authentication</h2>
-      <p>Authenticate your email address below to gain access to the app.</p>
+      <p>Authenticate your email address below to gain access to proceed.</p>
       <div class="form-group" v-bind:class="{ 'has-error': emailError}">
         <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
       </div>
@@ -42,7 +42,7 @@
 
   <div class="state" v-bind:class="{ past: verifyCode, present: confirmation, future: loading || auth || verifyCode }" data-state="confirmation">
     <h2>Welcome</h2>
-    <p>You have been authenticated and you can now continue to the app.</p>
+    <p>You have been authenticated and you can now proceed.</p>
     <button class="btn btn-primary lock_continue" v-on:click="redirect">Continue</button>
   </div>
 </div>
@@ -50,7 +50,7 @@
 <div class="content-wrapper placeholder">
   <div class="state present" data-state="auth">
     <h2 class="aligncenter">Authentication</h2>
-    <p>Authenticate your email address below to gain access to the app.</p>
+    <p>Authenticate your email address below to proceed.</p>
     <div class="form-group">
       <input type="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
     </div>

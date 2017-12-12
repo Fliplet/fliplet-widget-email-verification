@@ -42,7 +42,7 @@ Fliplet().then(function() {
       codeError: false,
       storedEmail: '',
       resentCode: false,
-      sendValidationLabel: 'Authenticate',
+      sendValidationLabel: 'Continue',
       widgetId: widgetId,
       disableButton: false,
       type: type,
@@ -64,11 +64,11 @@ Fliplet().then(function() {
           }
         },
         sendValidation: function() {
-          this.sendValidationLabel = 'Authenticating...';
+          this.sendValidationLabel = 'Verifying...';
           this.disableButton = true;
           if (!validateEmail(this.email)) {
             this.emailError = true;
-            this.sendValidationLabel = 'Authenticate';
+            this.sendValidationLabel = 'Continue';
             this.disableButton = false;
             return;
           }
@@ -88,12 +88,12 @@ Fliplet().then(function() {
                   Fliplet.App.Storage.set('user-email', vmData.email);
                   vmData.storedEmail = vmData.email;
                   app.showVerify();
-                  vmData.sendValidationLabel = 'Authenticate';
+                  vmData.sendValidationLabel = 'Continue';
                   vmData.disableButton = false;
                 })
                 .catch(function() {
                   vmData.emailError = true;
-                  vmData.sendValidationLabel = 'Authenticate';
+                  vmData.sendValidationLabel = 'Continue';
                   vmData.disableButton = false;
                 });
             });

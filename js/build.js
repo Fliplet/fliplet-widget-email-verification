@@ -190,10 +190,10 @@ Fliplet().then(function() {
           .then(function(session) {
             if (session && session.accounts && session.accounts.dataSource) {
               var verifiedAccounts = session.accounts.dataSource.filter(function (dataSourceAccount) {
-                return dataSourceAccount.id === dataSourceId;
+                return dataSourceAccount.dataSourceId === dataSourceId;
               });
 
-              if (verifiedAccounts.lenght) {
+              if (verifiedAccounts.length) {
                 setTimeout(function() {
                   Fliplet.Navigate.to(data.action);
                 }, 1000);

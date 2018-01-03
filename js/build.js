@@ -188,10 +188,16 @@ Fliplet().then(function() {
         if (!Fliplet.Env.get('disableSecurity')) {
           Fliplet.User.getCachedSession()
           .then(function(session) {
-            if (session && session.server && session.server.passports && session.server.passports.dataSource) {
-              setTimeout(function() {
-                Fliplet.Navigate.to(data.action);
-              }, 1000);
+            if (session && session.accounts && session.accounts.dataSource) {
+              var verifiedAccounts = session.accounts.dataSource.filter(function (dataSourceAccount) {
+                return dataSourceAccount.id === dataSourceId;
+              });
+
+              if (verifiedAccounts.lenght) {
+                setTimeout(function() {
+                  Fliplet.Navigate.to(data.action);
+                }, 1000);
+              }
             }
           });
         }

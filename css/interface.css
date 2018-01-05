@@ -2,6 +2,12 @@ body {
   background: transparent;
 }
 
+#widget-form-container .form-horizontal {
+  height: 100%;
+  padding: 15px;
+  overflow: auto;
+}
+
 #fl-widget-provider {
   border: 0;
   width: 100%;

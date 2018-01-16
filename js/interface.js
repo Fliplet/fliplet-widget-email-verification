@@ -12,6 +12,8 @@ data.validation.type = 'email';
 if (!data.action) {
   data.action = {
     action: 'screen',
+    page: '',
+    transition: 'slide.left',
     options: {
       hideAction: true
     }

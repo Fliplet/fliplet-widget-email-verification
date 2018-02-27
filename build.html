@@ -15,7 +15,7 @@
         <p class="email-error text-danger">\{{ securityError }}</p>
       </template>
       <button class="btn btn-primary verify-identity" v-bind:class="{ disabled: disableButton }" type="submit">\{{ sendValidationLabel }}</button>
-      <button v-if="storedEmail" v-on:click="showVerify" class="btn btn-link have-code">I have a verification code</button>
+      <span v-if="storedEmail" v-on:click="haveCode" class="btn btn-link have-code">I have a verification code</span>
     </form>
   </div>
 

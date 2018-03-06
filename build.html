@@ -29,7 +29,7 @@
           <p>Enter the verification code that was sent to the phone number associated with <span class="input-email">\{{ storedEmail }}</span>.</p>
         </template>
       <div class="form-group input-wrapper" v-bind:class="{ 'has-error': codeError}">
-        <input type="text" v-model="code" class="verify_pin form-control" placeholder="Enter verification code">
+        <input type="tel" v-model="code" class="verify_pin form-control" placeholder="Enter verification code">
         <span v-on:click="back" class="fa fa-chevron-left back"></span>
       </div>
       <p class="pin-error text-danger">You entered the wrong verification code or it might have expired.

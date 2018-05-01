@@ -63,6 +63,18 @@ Fliplet().then(function() {
             }, 1000);
           }
         },
+        createUserProfile(entry) {
+          entry = entry || {};
+          if (!entry.dataSourceId || !entry.id) {
+            return;
+          }
+
+          return {
+            type: 'dataSource',
+            dataSourceId: entry.dataSourceId,
+            dataSourceEntryId: entry.id
+          };
+        },
         sendValidation: function() {
           this.sendValidationLabel = 'Verifying...';
           this.disableButton = true;
@@ -125,13 +137,17 @@ Fliplet().then(function() {
                       where: where
                     })
                     .then(function(entry) {
+                      var user = app.createUserProfile(entry);
                       return Promise.all([
                         Fliplet.App.Storage.set({
                           'fl-chat-source-id': entry.dataSourceId,
                           'fl-chat-auth-email': vmData.email,
                           'fl-email-verification': entry
                         }),
-                        Fliplet.Profile.set('email', vmData.email),
+                        Fliplet.Profile.set({
+                          'email': vmData.email,
+                          'user': user
+                        }),
                         Fliplet.Hooks.run('onUserVerified', {
                           entry: entry
                         })
@@ -218,19 +234,46 @@ Fliplet().then(function() {
         // Check if user is already verified
         if (!Fliplet.Env.get('disableSecurity')) {
           Fliplet.User.getCachedSession()
-          .then(function(session) {
-            if (session && session.accounts && session.accounts.dataSource) {
-              var verifiedAccounts = session.accounts.dataSource.filter(function (dataSourceAccount) {
+            .then(function(session) {
+              if (!session || !session.accounts) {
+                return Promise.reject('Login session not found');
+              }
+
+              var dataSource = session.accounts.dataSource || [];
+              var verifiedAccounts = dataSource.filter(function (dataSourceAccount) {
                 return dataSourceAccount.dataSourceId === dataSourceId;
               });
 
-              if (verifiedAccounts.length) {
-                setTimeout(function() {
-                  Fliplet.Navigate.to(data.action);
-                }, 1000);
+              if (!verifiedAccounts.length) {
+                return Promise.reject('Login session not found');
               }
-            }
-          });
+
+              // Update stored email address based on retrieved session
+              var entry = verifiedAccounts[0];
+              var email = entry.data[columns[type + 'Match']];
+              var user = app.createUserProfile(entry);
+              return Promise.all([
+                Fliplet.App.Storage.set({
+                  'fl-chat-source-id': entry.dataSourceId,
+                  'fl-chat-auth-email': email,
+                  'fl-email-verification': entry
+                }),
+                Fliplet.Profile.set({
+                  'email': email,
+                  'user': user
+                })
+              ]);
+            })
+            .then(function () {
+              var navigate = Fliplet.Navigate.to(data.action);
+              if (typeof navigate === 'object' && typeof navigate.then === 'function') {
+                return navigate;
+              }
+              return Promise.resolve();
+            })
+            .catch(function (error) {
+              console.warn(error);
+            });
         }
 
         // Check if user was already around...

@@ -144,8 +144,10 @@ Fliplet().then(function() {
                           'fl-chat-auth-email': vmData.email,
                           'fl-email-verification': entry
                         }),
-                        Fliplet.Profile.set('email', vmData.email),
-                        Fliplet.Profile.set('user', user),
+                        Fliplet.Profile.set({
+                          'email': vmData.email,
+                          'user': user
+                        }),
                         Fliplet.Hooks.run('onUserVerified', {
                           entry: entry
                         })
@@ -256,8 +258,10 @@ Fliplet().then(function() {
                   'fl-chat-auth-email': email,
                   'fl-email-verification': entry
                 }),
-                Fliplet.Profile.set('email', email),
-                Fliplet.Profile.set('user', user)
+                Fliplet.Profile.set({
+                  'email': email,
+                  'user': user
+                })
               ]);
             })
             .then(function () {

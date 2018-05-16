@@ -9,7 +9,7 @@
         <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
       </div>
       <template v-if="emailError">
-        <p class="email-error text-danger">Please enter a valid email.</p>
+        <p class="email-error text-danger">\{{ emailErrorMessage }}</p>
       </template>
       <template v-if="securityError">
         <p class="email-error text-danger">\{{ securityError }}</p>

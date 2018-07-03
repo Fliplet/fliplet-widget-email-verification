@@ -66,7 +66,7 @@ Fliplet().then(function() {
             }, 1000);
           }
         },
-        createUserProfile(entry) {
+        createUserProfile: function(entry) {
           entry = entry || {};
           if (!entry.dataSourceId || !entry.id) {
             return;

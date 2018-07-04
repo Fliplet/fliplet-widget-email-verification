@@ -8,6 +8,8 @@
 	position: relative;
 	overflow: hidden;
 	margin-bottom: 30px;
+	max-width: 500px;
+	margin: auto;
 }
 
 .content-wrapper.placeholder {

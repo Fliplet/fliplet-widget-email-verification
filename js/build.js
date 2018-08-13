@@ -8,6 +8,11 @@ Fliplet().then(function() {
     var type = 'email';
     var columns = data.validation.dataSourceQuery.columns;
 
+    // Do not track login related redirects
+    if (typeof data.action !== 'undefined') {
+      data.action.track = false;
+    }
+
     function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);

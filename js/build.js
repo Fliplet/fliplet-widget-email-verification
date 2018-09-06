@@ -36,8 +36,6 @@ Fliplet().then(function() {
       el.css('overflow', 'auto');
     }
 
-    var defaultErrorMessage = 'Please enter a valid email.';
-
     var vmData = {
       loading: true,
       auth: false,
@@ -45,7 +43,7 @@ Fliplet().then(function() {
       confirmation: false,
       email: null,
       emailError: false,
-      emailErrorMessage: defaultErrorMessage,
+      emailErrorMessage: '',
       code: null,
       codeError: false,
       storedEmail: '',
@@ -88,7 +86,7 @@ Fliplet().then(function() {
           this.disableButton = true;
           if (!validateEmail(this.email)) {
             this.emailError = true;
-            this.emailErrorMessage = defaultErrorMessage;
+            this.emailErrorMessage = 'Please enter a valid email.';
             this.sendValidationLabel = 'Continue';
             this.disableButton = false;
             return;
@@ -118,7 +116,7 @@ Fliplet().then(function() {
                   vmData.disableButton = false;
                 })
                 .catch(function(err) {
-                  vmData.emailErrorMessage = (err.responseJSON && err.responseJSON.message) || defaultErrorMessage;
+                  vmData.emailErrorMessage = Fliplet.parseError(err) || 'Error verifying email';
                   vmData.emailError = true;
                   vmData.sendValidationLabel = 'Continue';
                   vmData.disableButton = false;

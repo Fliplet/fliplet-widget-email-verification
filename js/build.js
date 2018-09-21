@@ -4,9 +4,13 @@ Fliplet().then(function() {
     var widgetId = $el.data('email-verification-id');
     var data = Fliplet.Widget.getData(widgetId) || {};
 
-    var dataSourceId = data.validation.dataSourceQuery.dataSourceId;
     var type = 'email';
-    var columns = data.validation.dataSourceQuery.columns;
+    var dataSourceId = _.hasIn(data, 'validation.dataSourceQuery.dataSourceId')
+      ? data.validation.dataSourceQuery.dataSourceId
+      : null;
+    var columns = _.hasIn(data, 'validation.dataSourceQuery.columns')
+      ? data.validation.dataSourceQuery.columns
+      : null;
 
     // Do not track login related redirects
     if (typeof data.action !== 'undefined') {

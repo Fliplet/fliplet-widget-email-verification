@@ -13,7 +13,7 @@ if (!data.action) {
   data.action = {
     action: 'screen',
     page: '',
-    transition: 'slide.left',
+    transition: 'fade',
     options: {
       hideAction: true
     }

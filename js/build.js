@@ -191,6 +191,7 @@ Fliplet().then(function() {
           vmData.auth = false;
           vmData.verifyCode = true;
           vmData.emailError = false;
+          this.$refs.verificationCode.select();
         },
         haveCode: function() {
           Fliplet.Analytics.trackEvent({

@@ -3,6 +3,8 @@
 var widgetId = Fliplet.Widget.getDefaultId();
 var data = Fliplet.Widget.getData(widgetId) || {};
 var validInputEventName = 'interface-validate';
+var page = Fliplet.Widget.getPage();
+var omitPages = page ? [page.id] : [];
 
 // Preselect verification type
 data.validation = data.validation || {};
@@ -13,6 +15,7 @@ if (!data.action) {
   data.action = {
     action: 'screen',
     page: '',
+    omitPages: omitPages,
     transition: 'fade',
     options: {
       hideAction: true
@@ -56,6 +59,7 @@ $('form').submit(function(event) {
 // 3. Fired when the provider has finished
 linkActionProvider.then(function(result) {
   data.action = result.data;
+  data.action.omitPages = omitPages;
   validationProvider.forwardSaveRequest();
 });
 

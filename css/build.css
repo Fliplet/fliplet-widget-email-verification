@@ -12,6 +12,11 @@
 	margin: auto;
 }
 
+/* Fix component view when it is placed in the container */
+[data-widget-package="com.fliplet.email-validation"] {
+	width: 100%;
+}
+
 .content-wrapper.placeholder {
 	opacity: 0.5;
 	cursor: pointer;

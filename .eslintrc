@@ -1,0 +1,6 @@
+{
+  "extends": "fliplet",
+  "globals": {
+    Vue: true
+  }
+}

@@ -1,4 +1,4 @@
-//interface js
+// interface js
 
 var widgetId = Fliplet.Widget.getDefaultId();
 var data = Fliplet.Widget.getData(widgetId) || {};
@@ -25,7 +25,7 @@ var linkActionProvider = Fliplet.Widget.open('com.fliplet.link', {
   data: data.action,
   closeOnSave: false,
   onEvent: function(event, data) {
-    if (event === 'interface-validate') {
+    if (event === validInputEventName) {
       Fliplet.Widget.toggleSaveButton(data.isValid === true);
     }
   }

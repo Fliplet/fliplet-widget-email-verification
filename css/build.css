@@ -14,7 +14,7 @@
 
 /* Fix component view when it is placed in the container */
 [data-widget-package="com.fliplet.email-validation"] {
-	width: 100%;
+  width: 100%;
 }
 
 .content-wrapper.placeholder {

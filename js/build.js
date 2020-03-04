@@ -1,8 +1,7 @@
 Fliplet().then(function() {
-  $('.fl-email-verification').each(function() {
+  Fliplet.Widget.instance('email-verification', function(data) {
     var $el = $(this);
-    var widgetId = $el.data('email-verification-id');
-    var data = Fliplet.Widget.getData(widgetId) || {};
+    var widgetId = data.id;
 
     var type = 'email';
     var dataSourceId = _.hasIn(data, 'validation.dataSourceQuery.dataSourceId')

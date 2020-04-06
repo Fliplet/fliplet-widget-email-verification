@@ -44,6 +44,10 @@ var validationProvider = Fliplet.Widget.open('com.fliplet.validation-manager', {
   }
 });
 
+Fliplet.Widget.onCancelRequest(function() {
+  validationProvider.forwardCancelRequest();
+});
+
 // 1. Fired from Fliplet Studio when the external save button is clicked
 Fliplet.Widget.onSaveRequest(function() {
   $('form').submit();

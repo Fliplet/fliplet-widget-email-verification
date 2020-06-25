@@ -24,3 +24,7 @@ body {
 #link-actions {
   overflow: hidden;
 }
+
+.alert-warning u {
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@
 
 var widgetId = Fliplet.Widget.getDefaultId();
 var data = Fliplet.Widget.getData(widgetId) || {};
+var appId = Fliplet.Env.get('appId');
 var page = Fliplet.Widget.getPage();
 var omitPages = page ? [page.id] : [];
 
@@ -21,6 +22,8 @@ if (!data.action) {
     }
   };
 }
+
+checkSecurityRules();
 
 var linkActionProvider = Fliplet.Widget.open('com.fliplet.link', {
   selector: '#link-actions',
@@ -82,3 +85,36 @@ function save(notifyComplete) {
     }
   });
 }
+
+// Shows warning if security setting are not configured correctly
+function checkSecurityRules() {
+  Fliplet.API.request('v1/apps/' + appId).then(function(result) {
+    if (!result || !result.app) {
+      return;
+    }
+
+    var hooks = _.get(result.app, 'hooks', []);
+    var isSecurityConfigured = _.some(hooks, function(hook) {
+      return hook.script.indexOf(page.id) !== -1;
+    });
+
+    if (!hooks.length) {
+      $('#security-alert span').text('app has no security rules configured to prevent unauthorized access.');
+    }
+
+    $('#security-alert').toggleClass('hidden', isSecurityConfigured);
+  });
+}
+
+// Open security overlay
+$('#security-alert u').on('click', function() {
+  Fliplet.Studio.emit('overlay', {
+    name: 'app-settings',
+    options: {
+      title: 'App Settings',
+      size: 'large',
+      section: 'appSecurity',
+      appId: appId
+    }
+  });
+});

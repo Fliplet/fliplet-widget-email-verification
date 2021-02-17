@@ -1,7 +1,14 @@
+var verificationInstances = [];
+
 Fliplet().then(function() {
   Fliplet.Widget.instance('email-verification', function(data) {
     var $el = $(this);
     var widgetId = data.id;
+
+    var verificationReady;
+    var verificationPromise = new Promise(function (resolve) {
+      verificationReady = resolve;
+    });
 
     var type = 'email';
     var dataSourceId = _.hasIn(data, 'validation.dataSourceQuery.dataSourceId')
@@ -87,12 +94,14 @@ Fliplet().then(function() {
         sendValidation: function() {
           this.sendValidationLabel = 'Verifying...';
           this.disableButton = true;
+
           if (!validateEmail(this.email)) {
             this.emailError = true;
             this.emailErrorMessage = 'Please enter a valid email.';
             this.sendValidationLabel = 'Continue';
             this.disableButton = false;
-            return;
+
+            return Promise.reject(this.emailErrorMessage);
           }
 
           Fliplet.Analytics.trackEvent({
@@ -100,14 +109,15 @@ Fliplet().then(function() {
             action: 'code_request'
           });
 
-          Fliplet.DataSources.connect(dataSourceId, {
+          return Fliplet.DataSources.connect(dataSourceId, {
             offline: false
           })
             .then(function(dataSource) {
               var where = {};
 
               where[columns[type + 'Match']] = vmData.email;
-              dataSource.sendValidation({
+
+              return dataSource.sendValidation({
                 type: type,
                 where: where
               })
@@ -123,6 +133,8 @@ Fliplet().then(function() {
                   vmData.emailError = true;
                   vmData.sendValidationLabel = 'Continue';
                   vmData.disableButton = false;
+
+                  return Promise.reject(vmData.emailErrorMessage);
                 });
             });
         },
@@ -236,12 +248,24 @@ Fliplet().then(function() {
         }
       },
       mounted: function() {
+        var vm = this;
+
         // After half a second show auth
         setTimeout(function() {
           var selector = '.fl-email-verification[data-email-verification-id="' + vmData.widgetId + '"]';
           vmData.auth = true;
           calculateElHeight($(selector).find('.state[data-state=auth]'));
           vmData.loading = false;
+
+          verificationReady({
+            instance: vm,
+            setEmail: function (email) {
+              vm.email = email;
+            },
+            requestCode: function () {
+              return vm.sendValidation();
+            }
+          });
         }, 500);
 
         // Check if user is already verified
@@ -353,5 +377,17 @@ Fliplet().then(function() {
         }
       }
     });
+
+    verificationInstances.push(verificationPromise);
   });
 });
+
+Fliplet.Verification = Fliplet.Verification || {};
+
+Fliplet.Verification.Email = {
+  get: function () {
+    return Promise.all(verificationInstances).then(function (instances) {
+      return _.first(instances);
+    });
+  }
+};

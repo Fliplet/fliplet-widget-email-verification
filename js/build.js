@@ -94,12 +94,14 @@ Fliplet().then(function() {
         sendValidation: function() {
           this.sendValidationLabel = 'Verifying...';
           this.disableButton = true;
+
           if (!validateEmail(this.email)) {
             this.emailError = true;
             this.emailErrorMessage = 'Please enter a valid email.';
             this.sendValidationLabel = 'Continue';
             this.disableButton = false;
-            return;
+
+            return Promise.reject(this.emailErrorMessage);
           }
 
           Fliplet.Analytics.trackEvent({
@@ -107,14 +109,15 @@ Fliplet().then(function() {
             action: 'code_request'
           });
 
-          Fliplet.DataSources.connect(dataSourceId, {
+          return Fliplet.DataSources.connect(dataSourceId, {
             offline: false
           })
             .then(function(dataSource) {
               var where = {};
 
               where[columns[type + 'Match']] = vmData.email;
-              dataSource.sendValidation({
+
+              return dataSource.sendValidation({
                 type: type,
                 where: where
               })
@@ -130,6 +133,8 @@ Fliplet().then(function() {
                   vmData.emailError = true;
                   vmData.sendValidationLabel = 'Continue';
                   vmData.disableButton = false;
+
+                  return Promise.reject(vmData.emailErrorMessage);
                 });
             });
         },
@@ -256,6 +261,9 @@ Fliplet().then(function() {
             instance: vm,
             setEmail: function (email) {
               vm.email = email;
+            },
+            requestCode: function () {
+              return vm.sendValidation();
             }
           });
         }, 500);

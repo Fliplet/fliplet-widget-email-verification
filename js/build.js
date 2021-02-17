@@ -1,7 +1,14 @@
+var verificationInstances = [];
+
 Fliplet().then(function() {
   Fliplet.Widget.instance('email-verification', function(data) {
     var $el = $(this);
     var widgetId = data.id;
+
+    var verificationReady;
+    var verificationPromise = new Promise(function (resolve) {
+      verificationReady = resolve;
+    });
 
     var type = 'email';
     var dataSourceId = _.hasIn(data, 'validation.dataSourceQuery.dataSourceId')
@@ -236,12 +243,21 @@ Fliplet().then(function() {
         }
       },
       mounted: function() {
+        var vm = this;
+
         // After half a second show auth
         setTimeout(function() {
           var selector = '.fl-email-verification[data-email-verification-id="' + vmData.widgetId + '"]';
           vmData.auth = true;
           calculateElHeight($(selector).find('.state[data-state=auth]'));
           vmData.loading = false;
+
+          verificationReady({
+            instance: vm,
+            setEmail: function (email) {
+              vm.email = email;
+            }
+          });
         }, 500);
 
         // Check if user is already verified
@@ -353,5 +369,17 @@ Fliplet().then(function() {
         }
       }
     });
+
+    verificationInstances.push(verificationPromise);
   });
 });
+
+Fliplet.Verification = Fliplet.Verification || {};
+
+Fliplet.Verification.Email = {
+  get: function () {
+    return Promise.all(verificationInstances).then(function (instances) {
+      return _.first(instances);
+    });
+  }
+}

@@ -382,4 +382,4 @@ Fliplet.Verification.Email = {
       return _.first(instances);
     });
   }
-}
+};

@@ -56,7 +56,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
     emailErrorMessage: '',
     code: null,
     codeError: false,
-    codeErrorMessage: false,
+    codeErrorMessage: '',
     storedEmail: '',
     resentCode: false,
     sendValidationLabel: 'Continue',

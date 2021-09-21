@@ -1,5 +1,7 @@
 var verificationInstances = [];
 
+$(this).translate();
+
 Fliplet.Widget.instance('email-verification', function(data) {
   var widgetId = data.id;
   var verificationReady;
@@ -99,8 +101,8 @@ Fliplet.Widget.instance('email-verification', function(data) {
 
         if (!validateEmail(this.email)) {
           this.emailError = true;
-          this.emailErrorMessage = 'Please enter a valid email.';
-          this.sendValidationLabel = 'Continue';
+          this.emailErrorMessage = T('widgets.emailVerification.dataSource.emailErrorMessage');
+          this.sendValidationLabel = T('widgets.emailVerification.dataSource.sendValidationLabel');
           this.disableButton = false;
 
           return Promise.reject(this.emailErrorMessage);
@@ -281,7 +283,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
         Fliplet.User.getCachedSession()
           .then(function(session) {
             if (!session || !session.accounts) {
-              return Promise.reject('Login session not found');
+              return Promise.reject(T('widgets.emailVerification.dataSource.loginNotFound'));
             }
 
             var dataSource = session.accounts.dataSource || [];
@@ -290,7 +292,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
             });
 
             if (!verifiedAccounts.length) {
-              return Promise.reject('Login session not found');
+              return Promise.reject(T('widgets.emailVerification.dataSource.loginNotFound'));
             }
 
             // Update stored email address based on retrieved session

@@ -1,0 +1,42 @@
+{
+    "widgets": {
+        "emailVerification": {
+            "dataSource": {
+                "formContent": {
+                    "heading": "Configure the email verification component",
+                    "securitAlertHeading": "Security rule warning",
+                    "instruction": "Please check your app's <u>security rules</u> as we have detected your",
+                    "mentionedScreen": "Email verification screen is not mentioned.",
+                    "securityRulesLink": "Learn more about security rules.",
+                    "redirectScreen": "Redirect the user to a screen after verification"
+                },
+                "offline": "Your device is offline",
+                "sendValidation": {
+                    "heading": "Verification",
+                    "description": "Verify your email address below to gain access.",
+                    "haveCode": "I have a verification code"
+                },
+                "validateForm": {
+                    "heading": "Verify your email address",
+                    "emailCode": "Enter the verification code that was sent to",
+                    "smsCode": "Enter the verification code that was sent to the phone number associated with",
+                    "submitButton": "Verify",
+                    "resendCode": "Resend verification code",
+                    "pinResent": "A new verification code was sent to your email."
+                },
+                "stateVerification": {
+                    "description": "You have been verified and you can now proceed.",
+                    "continueButton": "Continue"
+                },
+                "verificationEmail": {
+                    "heading": "Verification",
+                    "description": "Verify your email address below to proceed.",
+                    "continueButton": "Continue"
+                },
+                "emailErrorMessage": "Please enter a valid email.",
+                "sendValidationLabel": "Continue",
+                "loginNotFound": "Login session not found"
+            }
+        }
+    }
+}

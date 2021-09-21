@@ -33,8 +33,14 @@
                     "description": "Verify your email address below to proceed.",
                     "continueButton": "Continue"
                 },
+                "input": {
+                    "emailInputPlaceholder": "Enter your email",
+                    "codeInputPlaceholder": "Enter verification code"
+                },
                 "emailErrorMessage": "Please enter a valid email.",
+                "errorVerifyingEmail": "Error verifying email",
                 "sendValidationLabel": "Continue",
+                "verifyingLabel": "Verifying...",
                 "loginNotFound": "Login session not found"
             }
         }

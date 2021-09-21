@@ -6,7 +6,7 @@
       <h2 class="aligncenter" data-translate="widgets.emailVerification.dataSource.sendValidation.heading">Verification</h2>
       <p data-translate="widgets.emailVerification.dataSource.sendValidation.description">Verify your email address below to gain access.</p>
       <div class="form-group" v-bind:class="{ 'has-error': emailError}">
-        <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
+        <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="{{T "widgets.smsVerification.dataSource.input.emailInputPlaceholder"}}">
       </div>
       <template v-if="emailError">
         <p class="email-error text-danger">\{{ emailErrorMessage }}</p>
@@ -29,7 +29,7 @@
           <p data-translate="widgets.emailVerification.dataSource.validateForm.smsCode">Enter the verification code that was sent to the phone number associated with <span class="input-email">\{{ storedEmail }}</span>.</p>
         </template>
       <div class="form-group input-wrapper" v-bind:class="{ 'has-error': codeError}">
-        <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" placeholder="Enter verification code">
+        <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" placeholder="{{T "widgets.smsVerification.dataSource.input.codeInputPlaceholder"}}">
         <span v-on:click="back" class="fa fa-chevron-left back"></span>
       </div>
       <p class="pin-error text-danger">\{{ codeErrorMessage }}</p>
@@ -50,7 +50,7 @@
     <h2 class="aligncenter" data-translate="widgets.emailVerification.dataSource.verificationEmail.heading">Verification</h2>
     <p data-translate="widgets.emailVerification.dataSource.verificationEmail.description">Verify your email address below to proceed.</p>
     <div class="form-group">
-      <input type="email" name="verify-email" class="form-control verify_email" placeholder="Enter your email">
+      <input type="email" name="verify-email" class="form-control verify_email" placeholder=placeholder="{{T "widgets.smsVerification.dataSource.input.emailInputPlaceholder"}}">
     </div>
     <button class="btn btn-primary disabled" disabled data-translate="widgets.emailVerification.dataSource.verificationEmail.continueButton">Continue</button>
   </div>

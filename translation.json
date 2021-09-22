@@ -3,7 +3,7 @@
         "emailVerification": {
             "dataSource": {
                 "offline": "Your device is offline",
-                "validate": {
+                "validation": {
                     "title": "Verification",
                     "instruction": "Verify your email address below to gain access.",
                     "emailPlaceholder": "Enter your email",
@@ -11,7 +11,7 @@
                     "complite": "Continue",
                     "progress": "Verifying..."
                 },
-                "verify": {
+                "verification": {
                     "title": "Verify your email address",
                     "instructions": {
                         "email": "Enter the verification code that was sent to",

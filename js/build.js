@@ -96,7 +96,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
         };
       },
       sendValidation: function() {
-        this.sendValidationLabel = T('widgets.emailVerification.dataSource.validate.progress');
+        this.sendValidationLabel = T('widgets.emailVerification.dataSource.validation.progress');
         this.disableButton = true;
 
         if (!validateEmail(this.email)) {
@@ -135,7 +135,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
               .catch(function(err) {
                 vmData.emailErrorMessage = Fliplet.parseError(err) || T('widgets.emailVerification.dataSource.errors.verifyEmail');
                 vmData.emailError = true;
-                vmData.sendValidationLabel = T('widgets.emailVerification.dataSource.validate.complite');
+                vmData.sendValidationLabel = T('widgets.emailVerification.dataSource.validation.complite');
                 vmData.disableButton = false;
 
                 return Promise.reject(vmData.emailErrorMessage);

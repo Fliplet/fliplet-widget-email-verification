@@ -1,6 +1,9 @@
 {
   "extends": "fliplet",
   "globals": {
-    Vue: true
+    Vue: true,
+    "TD": "readonly",
+    "TN": "readonly",
+    "T": "readonly"
   }
 }

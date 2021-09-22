@@ -35,13 +35,13 @@
       <p class="pin-error text-danger">\{{ codeErrorMessage }}</p>
       <button class="btn btn-primary verify-code" type="submit" data-translate="widgets.emailVerification.dataSource.verification.actions.verify">Verify</button>
       <span v-on:click="resendCode" class="btn btn-link resend-code" data-translate="widgets.emailVerification.dataSource.verification.actions.resend">Resend verification code</span>
-      <p class="pin-resent text-success" data-translate="widgets.emailVerification.dataSource.verification.success">A new verification code was sent to your email.</p>
+      <p class="pin-resent text-success" data-translate="widgets.emailVerification.dataSource.verification.newCodeSent">A new verification code was sent to your email.</p>
     </form>
   </div>
 
   <div class="state" v-bind:class="{ past: verifyCode, present: confirmation, future: loading || auth || verifyCode }" data-state="confirmation">
-    <p data-translate="widgets.emailVerification.dataSource.success.instruction">You have been verified and you can now proceed.</p>
-    <button class="btn btn-primary lock_continue" v-on:click="redirect" data-translate="widgets.emailVerification.dataSource.success.action">Continue</button>
+    <p data-translate="widgets.emailVerification.dataSource.verification.success">You have been verified and you can now proceed.</p>
+    <button class="btn btn-primary lock_continue" v-on:click="redirect" data-translate="widgets.emailVerification.dataSource.verification.continue">Continue</button>
   </div>
 </div>
 {{else}}

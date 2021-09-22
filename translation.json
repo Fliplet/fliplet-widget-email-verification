@@ -22,11 +22,9 @@
                         "verify": "Verify",
                         "resend": "Resend verification code"
                     },
-                    "success": "A new verification code was sent to your email."
-                },
-                "success": {
-                    "instruction": "You have been verified and you can now proceed.",
-                    "action": "Continue"
+                    "newCodeSent": "A new verification code was sent to your email.",
+                    "success": "You have been verified and you can now proceed.",
+                    "continue": "Continue"
                 },
                 "errors": {
                     "emailInvalid": "Please enter a valid email.",

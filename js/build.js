@@ -102,7 +102,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
         if (!validateEmail(this.email)) {
           this.emailError = true;
           this.emailErrorMessage = T('widgets.emailVerification.dataSource.errors.emailInvalid');
-          this.sendValidationLabel = T('widgets.emailVerification.dataSource.success.action');
+          this.sendValidationLabel = T('widgets.emailVerification.dataSource.verification.continue');
           this.disableButton = false;
 
           return Promise.reject(this.emailErrorMessage);
@@ -129,7 +129,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
                 Fliplet.App.Storage.set('user-email', vmData.email);
                 vmData.storedEmail = vmData.email;
                 app.showVerify();
-                vmData.sendValidationLabel = T('widgets.emailVerification.dataSource.success.action');
+                vmData.sendValidationLabel = T('widgets.emailVerification.dataSource.verification.continue');
                 vmData.disableButton = false;
               })
               .catch(function(err) {

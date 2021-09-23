@@ -3,29 +3,31 @@
         "emailVerification": {
             "dataSource": {
                 "offline": "Your device is offline",
-                "validation": {
+                "email": {
                     "title": "Verification",
                     "instruction": "Verify your email address below to gain access.",
-                    "emailPlaceholder": "Enter your email",
-                    "message": "I have a verification code",
-                    "complete": "Continue",
-                    "progress": "Verifying..."
-                },
-                "verification": {
-                    "title": "Verify your email address",
-                    "instructions": {
-                        "email": "Enter the verification code that was sent to",
-                        "phone": "Enter the verification code that was sent to the phone number associated with"
-                    },
-                    "verifyPlaceholder": "Enter verification code",
+                    "placeholder": "Enter your email",
+                    "progress": "Verifying...",
                     "actions": {
+                        "send": "Continue",
+                        "userHasCode": "I have a verification code"
+                    }
+                },
+                "phone": {
+                    "instruction": "Enter the verification code that was sent to the phone number associated with"
+                },
+                "code": {
+                    "title": "Verify your email address",
+                    "instruction": "Enter the verification code that was sent to",
+                    "placeholder": "Enter verification code",
+                    "newCodeSent": "A new verification code was sent to your email.",
+                    "actions": {
+                        "continue": "Continue",
                         "verify": "Verify",
                         "resend": "Resend verification code"
-                    },
-                    "newCodeSent": "A new verification code was sent to your email.",
-                    "success": "You have been verified and you can now proceed.",
-                    "continue": "Continue"
+                    }
                 },
+                "success": "You have been verified and you can now proceed.",
                 "errors": {
                     "emailInvalid": "Please enter a valid email.",
                     "emailVerificationFailed": "Error verifying email",

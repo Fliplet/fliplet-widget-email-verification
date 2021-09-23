@@ -6,7 +6,7 @@
       <h2 class="aligncenter" data-translate="widgets.emailVerification.dataSource.email.title">Verification</h2>
       <p data-translate="widgets.emailVerification.dataSource.email.instruction">Verify your email address below to gain access.</p>
       <div class="form-group" v-bind:class="{ 'has-error': emailError}">
-        <input type="email" v-model="email" name="verify-email" class="form-control verify_email" placeholder="{{T "widgets.emailVerification.dataSource.email.placeholder"}}">
+        <input type="email" v-model="email" name="verify-email" class="form-control verify_email" data-translate="[placeholder]widgets.smsVerification.dataSource.email.placeholder" placeholder="Enter your email">
       </div>
       <template v-if="emailError">
         <p class="email-error text-danger">\{{ emailErrorMessage }}</p>
@@ -29,7 +29,7 @@
           <p data-translate="widgets.emailVerification.dataSource.phone.instruction">Enter the verification code that was sent to the phone number associated with <span class="input-email">\{{ storedEmail }}</span>.</p>
         </template>
       <div class="form-group input-wrapper" v-bind:class="{ 'has-error': codeError}">
-        <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" placeholder="{{T "widgets.smsVerification.dataSource.code.placeholder"}}">
+        <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" data-translate="[placeholder]widgets.smsVerification.dataSource.code.placeholder" placeholder="Enter verification code">
         <span v-on:click="back" class="fa fa-chevron-left back"></span>
       </div>
       <p class="pin-error text-danger">\{{ codeErrorMessage }}</p>

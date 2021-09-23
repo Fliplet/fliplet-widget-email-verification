@@ -8,7 +8,7 @@
                     "instruction": "Verify your email address below to gain access.",
                     "emailPlaceholder": "Enter your email",
                     "message": "I have a verification code",
-                    "complite": "Continue",
+                    "complete": "Continue",
                     "progress": "Verifying..."
                 },
                 "verification": {
@@ -28,7 +28,7 @@
                 },
                 "errors": {
                     "emailInvalid": "Please enter a valid email.",
-                    "verifyEmail": "Error verifying email",
+                    "emailVerificationFailed": "Error verifying email",
                     "sessionNotFound": "Login session not found"
                 }
             }

@@ -133,9 +133,9 @@ Fliplet.Widget.instance('email-verification', function(data) {
                 vmData.disableButton = false;
               })
               .catch(function(err) {
-                vmData.emailErrorMessage = Fliplet.parseError(err) || T('widgets.emailVerification.dataSource.errors.verifyEmail');
+                vmData.emailErrorMessage = Fliplet.parseError(err) || T('widgets.emailVerification.dataSource.errors.emailVerificationFailed');
                 vmData.emailError = true;
-                vmData.sendValidationLabel = T('widgets.emailVerification.dataSource.validation.complite');
+                vmData.sendValidationLabel = T('widgets.emailVerification.dataSource.validation.complete');
                 vmData.disableButton = false;
 
                 return Promise.reject(vmData.emailErrorMessage);

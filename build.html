@@ -23,10 +23,10 @@
     <form v-on:submit.prevent="validate">
       <h2 data-translate="widgets.login.emailVerification.code.title">Verify your email address</h2>
       <template v-if="type === 'email'">
-          <p data-translate="[html]widgets.login.smsVerification.code.instruction">Enter the verification code that was sent to <span class="input-email" ref="storedEmail"></span>.</p>
+          <p data-translate="[html]widgets.login.emailVerification.code.checkEmail">Enter the verification code that was sent to <span class="input-email" ref="storedEmail"></span>.</p>
         </template>
       <template v-if="type === 'sms'">
-          <p data-translate="[html]widgets.login.smsVerification.phone.instruction">Enter the verification code that was sent to the phone number associated with <span class="input-email" ref="storedEmail"></span>.</p>
+          <p data-translate="[html]widgets.login.emailVerification.code.checkSMS">Enter the verification code that was sent to the phone number associated with <span class="input-email" ref="storedEmail"></span>.</p>
         </template>
       <div class="form-group input-wrapper" v-bind:class="{ 'has-error': codeError}">
         <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" data-translate="[placeholder]widgets.login.emailVerification.code.placeholder" placeholder="Enter verification code">

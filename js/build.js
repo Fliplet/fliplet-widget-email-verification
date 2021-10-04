@@ -70,6 +70,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
   };
 
   var app = new Vue({
+    i18n: Fliplet.Locale.plugins.vue(),
     el: this,
     data: vmData,
     methods: {
@@ -387,6 +388,9 @@ Fliplet.Widget.instance('email-verification', function(data) {
             app.changeState('verify-code');
           }, 0);
         }
+      },
+      storedEmail: function(newVal) {
+        app.$refs.storedEmail.innerHTML = newVal;
       }
     }
   });

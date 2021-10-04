@@ -1,39 +1,39 @@
 {
-    "widgets": {
-        "login": {
-            "emailVerification": {
-                "offline": "Your device is offline",
-                "email": {
-                    "title": "Verification",
-                    "instruction": "Verify your email address below to gain access.",
-                    "placeholder": "Enter your email",
-                    "progress": "Verifying...",
-                    "actions": {
-                        "send": "Continue",
-                        "userHasCode": "I have a verification code"
-                    }
-                },
-                "phone": {
-                    "instruction": "Enter the verification code that was sent to the phone number associated with <span class=\"input-email\">{{ email }}</span>."
-                },
-                "code": {
-                    "title": "Verify your email address",
-                    "instruction": "Enter the verification code that was sent to <span class=\"input-email\">{{ email }}</span>.",
-                    "placeholder": "Enter verification code",
-                    "newCodeSent": "A new verification code was sent to your email.",
-                    "actions": {
-                        "continue": "Continue",
-                        "verify": "Verify",
-                        "resend": "Resend verification code"
-                    }
-                },
-                "success": "You have been verified and you can now proceed.",
-                "errors": {
-                    "emailInvalid": "Please enter a valid email.",
-                    "emailVerificationFailed": "Error verifying email",
-                    "sessionNotFound": "Login session not found"
-                }
-            }
+  "widgets": {
+    "login": {
+      "emailVerification": {
+        "offline": "Your device is offline",
+        "email": {
+          "title": "Verification",
+          "instruction": "Verify your email address below to gain access.",
+          "placeholder": "Enter your email",
+          "progress": "Verifying...",
+          "actions": {
+            "send": "Continue",
+            "userHasCode": "I have a verification code"
+          }
+        },
+        "phone": {
+          "instruction": "Enter the verification code that was sent to the phone number associated with <span class=\"input-email\" ref=\"storedEmail\"></span>."
+        },
+        "code": {
+          "title": "Verify your email address",
+          "instruction": "Enter the verification code that was sent to <span class=\"input-email\" ref=\"storedEmail\"></span>.",
+          "placeholder": "Enter verification code",
+          "newCodeSent": "A new verification code was sent to your email.",
+          "actions": {
+            "continue": "Continue",
+            "verify": "Verify",
+            "resend": "Resend verification code"
+          }
+        },
+        "success": "You have been verified and you can now proceed.",
+        "errors": {
+          "emailInvalid": "Please enter a valid email.",
+          "emailVerificationFailed": "Error verifying email",
+          "sessionNotFound": "Login session not found"
         }
+      }
     }
+  }
 }

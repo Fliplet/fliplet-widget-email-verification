@@ -61,7 +61,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
     codeErrorMessage: '',
     storedEmail: '',
     resentCode: false,
-    sendValidationLabel: 'Continue',
+    sendValidationLabel: T('widgets.login.emailVerification.email.actions.send'),
     widgetId: widgetId,
     disableButton: false,
     type: type,

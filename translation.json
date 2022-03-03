@@ -15,7 +15,7 @@
         },
         "code": {
           "title": "Verify your email address",
-          "checkEmail ": "Enter the verification code that was sent to <span class=\"input-email\" ref=\"storedEmail\"></span>.",
+          "checkEmail": "Enter the verification code that was sent to <span class=\"input-email\" ref=\"storedEmail\"></span>.",
           "checkSMS": "Enter the verification code that was sent to the phone number associated with <span class=\"input-email\" ref=\"storedEmail\"></span>.",
           "placeholder": "Enter verification code",
           "newCodeSent": "A new verification code was sent to your email.",

@@ -23,7 +23,7 @@
     <form v-on:submit.prevent="validate">
       <h2 data-translate="widgets.login.emailVerification.code.title">Verify your email address</h2>
       <template v-if="type === 'email'">
-          <p data-translate="[html]widgets.login.emailVerification.code.checkEmail">Enter the verification code that was sent to <span class="input-email" ref="storedEmail"></span>.</p>
+          <p v-html="$t('widgets.login.emailVerification.code.checkEmail', {email: storedEmail})">Enter the verification code that was sent to <span class="input-email" ref="storedEmail"></span>.</p>
         </template>
       <template v-if="type === 'sms'">
           <p data-translate="[html]widgets.login.emailVerification.code.checkSMS">Enter the verification code that was sent to the phone number associated with <span class="input-email" ref="storedEmail"></span>.</p>

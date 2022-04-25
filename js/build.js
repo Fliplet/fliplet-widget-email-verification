@@ -6,7 +6,6 @@ Fliplet.Widget.instance('email-verification', function(data) {
   var verificationPromise = new Promise(function(resolve) {
     verificationReady = resolve;
   });
-  var _this = this;
 
   var type = 'email';
   var dataSourceId = _.hasIn(data, 'validation.dataSourceQuery.dataSourceId')
@@ -253,7 +252,11 @@ Fliplet.Widget.instance('email-verification', function(data) {
           // Wait for keyboard to be dismissed before calculating element height
           calculateElHeight($($vm.$el).find('.state[data-state=' + state + ']'));
 
-          _this.scrollLeft = 0;
+          setTimeout(function() {
+            $('[data-email-verification-id="' + vmData.widgetId + '"]').animate({
+              scrollLeft: 0
+            }, 50);
+          }, 250);
         }, 0);
       }
     },

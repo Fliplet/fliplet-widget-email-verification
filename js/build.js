@@ -251,6 +251,12 @@ Fliplet.Widget.instance('email-verification', function(data) {
         setTimeout(function nextTick() {
           // Wait for keyboard to be dismissed before calculating element height
           calculateElHeight($($vm.$el).find('.state[data-state=' + state + ']'));
+
+          setTimeout(function() {
+            $('[data-email-verification-id="' + vmData.widgetId + '"]').animate({
+              scrollLeft: 0
+            }, 50);
+          }, 250);
         }, 0);
       }
     },

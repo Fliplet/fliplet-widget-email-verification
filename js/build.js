@@ -1,6 +1,8 @@
 var verificationInstances = [];
 
 Fliplet.Widget.instance('email-verification', function(data) {
+  $(this).translate();
+
   var widgetId = data.id;
   var verificationReady;
   var verificationPromise = new Promise(function(resolve) {
@@ -59,7 +61,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
     codeErrorMessage: '',
     storedEmail: '',
     resentCode: false,
-    sendValidationLabel: 'Continue',
+    sendValidationLabel: T('widgets.login.emailVerification.email.actions.send'),
     widgetId: widgetId,
     disableButton: false,
     type: type,
@@ -68,6 +70,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
   };
 
   var app = new Vue({
+    i18n: Fliplet.Locale.plugins.vue(),
     el: this,
     data: vmData,
     methods: {
@@ -94,13 +97,13 @@ Fliplet.Widget.instance('email-verification', function(data) {
         };
       },
       sendValidation: function() {
-        this.sendValidationLabel = 'Verifying...';
+        this.sendValidationLabel = T('widgets.login.emailVerification.email.progress');
         this.disableButton = true;
 
         if (!validateEmail(this.email)) {
           this.emailError = true;
-          this.emailErrorMessage = 'Please enter a valid email.';
-          this.sendValidationLabel = 'Continue';
+          this.emailErrorMessage = T('widgets.login.emailVerification.errors.emailInvalid');
+          this.sendValidationLabel = T('widgets.login.emailVerification.email.actions.send');
           this.disableButton = false;
 
           return Promise.reject(this.emailErrorMessage);
@@ -127,13 +130,13 @@ Fliplet.Widget.instance('email-verification', function(data) {
                 Fliplet.App.Storage.set('user-email', vmData.email);
                 vmData.storedEmail = vmData.email;
                 app.showVerify();
-                vmData.sendValidationLabel = 'Continue';
+                vmData.sendValidationLabel = T('widgets.login.emailVerification.email.actions.send');
                 vmData.disableButton = false;
               })
               .catch(function(err) {
-                vmData.emailErrorMessage = Fliplet.parseError(err) || 'Error verifying email';
+                vmData.emailErrorMessage = Fliplet.parseError(err) || T('widgets.login.emailVerification.errors.emailVerificationFailed');
                 vmData.emailError = true;
-                vmData.sendValidationLabel = 'Continue';
+                vmData.sendValidationLabel = T('widgets.login.emailVerification.email.actions.send');
                 vmData.disableButton = false;
 
                 return Promise.reject(vmData.emailErrorMessage);
@@ -287,7 +290,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
         Fliplet.User.getCachedSession()
           .then(function(session) {
             if (!session || !session.accounts) {
-              return Promise.reject('Login session not found');
+              return Promise.reject(T('widgets.login.emailVerification.errors.sessionNotFound'));
             }
 
             var dataSource = session.accounts.dataSource || [];
@@ -296,7 +299,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
             });
 
             if (!verifiedAccounts.length) {
-              return Promise.reject('Login session not found');
+              return Promise.reject(T('widgets.login.emailVerification.errors.sessionNotFound'));
             }
 
             // Update stored email address based on retrieved session
@@ -391,6 +394,9 @@ Fliplet.Widget.instance('email-verification', function(data) {
             app.changeState('verify-code');
           }, 0);
         }
+      },
+      storedEmail: function(newVal) {
+        app.$refs.storedEmail.innerHTML = newVal;
       }
     }
   });

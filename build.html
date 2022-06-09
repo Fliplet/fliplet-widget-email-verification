@@ -1,12 +1,12 @@
 {{#if validation}}
 <div data-email-verification-id="{{id}}" data-email-verification-uuid="{{uuid}}" class="content-wrapper fl-email-verification" v-bind:class="{ 'device-offline': deviceOffline }">
-  <div class="verfication-offline" data-translate="widgets.login.emailVerification.offline">Your device is offline</div>
+  <div class="verfication-offline" v-html="$t('widgets.login.emailVerification.offline')">Your device is offline</div>
   <div class="state" v-bind:class="{ start: loading, past: verifyCode || confirmation, present: auth, 'has-code': storedEmail}" data-state="auth">
     <form v-on:submit.prevent="sendValidation">
-      <h2 class="aligncenter" data-translate="widgets.login.emailVerification.email.title">Verification</h2>
-      <p data-translate="widgets.login.emailVerification.email.instruction">Verify your email address below to gain access.</p>
+      <h2 class="aligncenter" v-html="$t('widgets.login.emailVerification.email.title')">Verification</h2>
+      <p v-html="$t('widgets.login.emailVerification.email.instruction')">Verify your email address below to gain access.</p>
       <div class="form-group" v-bind:class="{ 'has-error': emailError}">
-        <input type="email" v-model="email" name="verify-email" class="form-control verify_email" data-translate="[placeholder]widgets.login.emailVerification.email.placeholder" placeholder="Enter your email">
+        <input type="email" v-model="email" name="verify-email" class="form-control verify_email" :placeholder="$t('widgets.login.emailVerification.email.placeholder')">
       </div>
       <template v-if="emailError">
         <p class="email-error text-danger">\{{ emailErrorMessage }}</p>
@@ -15,33 +15,33 @@
         <p class="email-error text-danger">\{{ securityError }}</p>
       </template>
       <button class="btn btn-primary verify-identity" v-bind:class="{ disabled: disableButton }" type="submit">\{{ sendValidationLabel }}</button>
-      <span v-if="storedEmail" v-on:click="haveCode" class="btn btn-link have-code" data-translate="widgets.login.emailVerification.email.actions.userHasCode">I have a verification code</span>
+      <span v-if="storedEmail" v-on:click="haveCode" class="btn btn-link have-code" v-html="$t('widgets.login.emailVerification.email.actions.userHasCode')">I have a verification code</span>
     </form>
   </div>
 
   <div class="state" v-bind:class="{ past: confirmation, present: verifyCode, future: loading || auth, 'new-pin': resentCode }" data-state="verify-code">
     <form v-on:submit.prevent="validate">
-      <h2 data-translate="widgets.login.emailVerification.code.title">Verify your email address</h2>
+      <h2 v-html="$t('widgets.login.emailVerification.code.title')">Verify your email address</h2>
       <template v-if="type === 'email'">
           <p v-html="$t('widgets.login.emailVerification.code.checkEmail', {email: storedEmail})">Enter the verification code that was sent to <span class="input-email" ref="storedEmail"></span>.</p>
         </template>
       <template v-if="type === 'sms'">
-          <p data-translate="[html]widgets.login.emailVerification.code.checkSMS">Enter the verification code that was sent to the phone number associated with <span class="input-email" ref="storedEmail"></span>.</p>
+          <p v-html="$t('widgets.login.emailVerification.code.checkSMS')">Enter the verification code that was sent to the phone number associated with <span class="input-email" ref="storedEmail"></span>.</p>
         </template>
       <div class="form-group input-wrapper" v-bind:class="{ 'has-error': codeError}">
-        <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" data-translate="[placeholder]widgets.login.emailVerification.code.placeholder" placeholder="Enter verification code">
+        <input type="tel" v-model="code" class="verify_pin form-control" ref="verificationCode" :placeholder="$t('widgets.login.emailVerification.code.placeholder')">
         <span v-on:click="back" class="fa fa-chevron-left back"></span>
       </div>
       <p class="pin-error text-danger">\{{ codeErrorMessage }}</p>
-      <button class="btn btn-primary verify-code" type="submit" data-translate="widgets.login.emailVerification.code.actions.verify">Verify</button>
-      <span v-on:click="resendCode" class="btn btn-link resend-code" data-translate="widgets.login.emailVerification.code.actions.resend">Resend verification code</span>
-      <p class="pin-resent text-success" data-translate="widgets.login.emailVerification.code.newCodeSent">A new verification code was sent to your email.</p>
+      <button class="btn btn-primary verify-code" type="submit" v-html="$t('widgets.login.emailVerification.code.actions.verify')">Verify</button>
+      <span v-on:click="resendCode" class="btn btn-link resend-code" v-html="$t('widgets.login.emailVerification.code.actions.resend')">Resend verification code</span>
+      <p class="pin-resent text-success" v-html="$t('widgets.login.emailVerification.code.newCodeSent')">A new verification code was sent to your email.</p>
     </form>
   </div>
 
   <div class="state" v-bind:class="{ past: verifyCode, present: confirmation, future: loading || auth || verifyCode }" data-state="confirmation">
-    <p data-translate="widgets.login.emailVerification.success">You have been verified and you can now proceed.</p>
-    <button class="btn btn-primary lock_continue" v-on:click="redirect" data-translate="widgets.login.emailVerification.code.actions.continue">Continue</button>
+    <p v-html="$t('widgets.login.emailVerification.success')">You have been verified and you can now proceed.</p>
+    <button class="btn btn-primary lock_continue" v-on:click="redirect" v-html="$t('widgets.login.emailVerification.code.actions.continue')">Continue</button>
   </div>
 </div>
 {{else}}

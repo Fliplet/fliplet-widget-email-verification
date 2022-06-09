@@ -1,8 +1,7 @@
 var verificationInstances = [];
 
 Fliplet.Widget.instance('email-verification', function(data) {
-  $(this).translate();
-
+  var $container = $(this);
   var widgetId = data.id;
   var verificationReady;
   var verificationPromise = new Promise(function(resolve) {
@@ -402,6 +401,10 @@ Fliplet.Widget.instance('email-verification', function(data) {
   });
 
   verificationInstances.push(verificationPromise);
+
+  Fliplet().then(function() {
+    $container.translate()
+  });
 });
 
 Fliplet.Verification = Fliplet.Verification || {};

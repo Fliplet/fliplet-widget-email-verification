@@ -406,8 +406,6 @@ Fliplet.Widget.instance('email-verification', function(data) {
 
   Fliplet().then(function() {
     init();
-
-    $container.translate()
   });
 });
 

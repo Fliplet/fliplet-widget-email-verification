@@ -2,7 +2,6 @@ var verificationInstances = [];
 
 Fliplet.Widget.instance('email-verification', function(data) {
   var $container = $(this);
-  console.log($container);
   var widgetId = data.id;
   var verificationReady;
   var verificationPromise = new Promise(function(resolve) {

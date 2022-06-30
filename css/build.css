@@ -8,6 +8,7 @@
 	position: relative;
 	overflow: hidden;
 	margin-bottom: 30px;
+	max-width: 500px;
 	margin: auto;
 }
 
@@ -126,9 +127,8 @@
 }
 
 .state .btn {
-  margin: 20px auto 0;
-  display: inline-block;
-  outline: none;
+	margin: 20px auto 0;
+	display: block;
 }
 
 .state .input-email {

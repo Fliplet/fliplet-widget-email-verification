@@ -5,9 +5,12 @@ var data = Fliplet.Widget.getData(widgetId) || {};
 var appId = Fliplet.Env.get('appId');
 var page = Fliplet.Widget.getPage();
 var omitPages = page ? [page.id] : [];
+var isPublicApp = Fliplet.Navigate.query && Fliplet.Navigate.query.isPublicApp === 'true';
 
 // Preselect verification type
-data.validation = data.validation || {};
+data.validation = data.validation || {
+  isPublicApp: isPublicApp
+};
 data.validation.type = 'email';
 
 

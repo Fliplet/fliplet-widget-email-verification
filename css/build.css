@@ -42,22 +42,22 @@
 .content-wrapper .state.past {
 	-webkit-transform: translate3d(-105%, 0, 0);
 	transform: translate3d(-105%, 0, 0);
-	-webkit-transition: all 0.25s ease;
-	transition: all 0.25s ease;
+	-webkit-transition: transform 0.25s ease, opacity 0.25s ease;
+	transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .content-wrapper .state.present {
 	opacity: 1;
 	pointer-events: all;
-	-webkit-transition: all 0.25s ease;
-	transition: all 0.25s ease;
+	-webkit-transition: transform 0.25s ease, opacity 0.25s ease;
+	transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .content-wrapper .state.future {
 	-webkit-transform: translate3d(105%, 0, 0);
 	transform: translate3d(105%, 0, 0);
-	-webkit-transition: all 0.25s ease;
-	transition: all 0.25s ease;
+	-webkit-transition: transform 0.25s ease, opacity 0.25s ease;
+	transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
 .state p {

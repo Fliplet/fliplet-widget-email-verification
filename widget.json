@@ -17,6 +17,7 @@
       "fliplet-datasources",
       "fliplet-studio-ui",
       "bootstrap",
+      "lodash",
       "tinymce"
     ],
     "assets": [
@@ -30,6 +31,7 @@
       "fliplet-core",
       "bootstrap-css",
       "handlebars",
+      "lodash",
       "fliplet-datasources",
       "font-awesome",
       "fliplet-session"

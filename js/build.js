@@ -26,30 +26,55 @@ Fliplet.Widget.instance('email-verification', function(data) {
   function init() {
     function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  
+
       return re.test(email);
     }
-  
+
     function calculateElHeight(el) {
-      var parentUUID = el.parent().attr('data-email-verification-uuid');
+      // Short guard: if hidden or height is 0 (e.g. inside collapsed accordion), re-run once the accordion is shown
+      if (!el || !el.length) {
+        return;
+      }
+
       var elementHeight = el.outerHeight(true);
-  
+
+      if (!el.is(':visible') || !elementHeight) {
+        // Recalculate once the containing accordion pane is shown.
+        // Use .on and unbind only when the matching panel opens to support multiple instances.
+        var eventNamespace = 'shown.bs.collapse.emailVerification-' + widgetId;
+        var handler = function(e) {
+          var $root = $('[data-email-verification-id="' + vmData.widgetId + '"]');
+
+          if ($(e.target).has($root).length || $root.has(e.target).length || $(e.target).is($root)) {
+            $(document).off(eventNamespace, handler);
+            calculateElHeight(el);
+          }
+        };
+
+        $(document).on(eventNamespace, handler);
+
+        return;
+      }
+
+
+      var parentUUID = el.parent().attr('data-email-verification-uuid');
+
       if (el.hasClass('start')) {
         $('[data-email-verification-uuid="' + parentUUID + '"]').children('.state.start');
-  
+
         if (vmData.storedEmail) {
           $('[data-email-verification-uuid="' + parentUUID + '"]').children('.state.start').addClass('has-code');
         }
-  
+
         setTimeout(function() {
           $('[data-email-verification-uuid="' + parentUUID + '"]').children('.state.start').removeClass('start').addClass('present');
         }, 1000);
       }
-  
+
       el.parents('.content-wrapper').css('height', elementHeight);
       el.css('overflow', 'auto');
     }
-  
+
     var vmData = {
       loading: true,
       auth: false,
@@ -70,7 +95,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
       deviceOffline: false,
       securityError: undefined
     };
-  
+
     var app = new Vue({
       i18n: Fliplet.Locale.plugins.vue(),
       el: $container[0],
@@ -87,11 +112,11 @@ Fliplet.Widget.instance('email-verification', function(data) {
         },
         createUserProfile: function(entry) {
           entry = entry || {};
-  
+
           if (!entry.dataSourceId || !entry.id) {
             return;
           }
-  
+
           return {
             type: 'dataSource',
             dataSourceId: entry.dataSourceId,
@@ -101,29 +126,29 @@ Fliplet.Widget.instance('email-verification', function(data) {
         sendValidation: function() {
           this.sendValidationLabel = T('widgets.login.emailVerification.email.progress');
           this.disableButton = true;
-  
+
           if (!validateEmail(this.email)) {
             this.emailError = true;
             this.emailErrorMessage = T('widgets.login.emailVerification.errors.emailInvalid');
             this.sendValidationLabel = T('widgets.login.emailVerification.email.actions.send');
             this.disableButton = false;
-  
+
             return Promise.reject(this.emailErrorMessage);
           }
-  
+
           Fliplet.Analytics.trackEvent({
             category: 'email_verification',
             action: 'code_request'
           });
-  
+
           return Fliplet.DataSources.connect(dataSourceId, {
             offline: false
           })
             .then(function(dataSource) {
               var where = {};
-  
+
               where[columns[type + 'Match']] = vmData.email;
-  
+
               return dataSource.sendValidation({
                 type: type,
                 where: where
@@ -140,7 +165,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
                   vmData.emailError = true;
                   vmData.sendValidationLabel = T('widgets.login.emailVerification.email.actions.send');
                   vmData.disableButton = false;
-  
+
                   return Promise.reject(vmData.emailErrorMessage);
                 });
             });
@@ -150,7 +175,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
             category: 'email_verification',
             action: 'code_verify'
           });
-  
+
           Fliplet.DataSources.connect(dataSourceId, {
             offline: false
           })
@@ -158,9 +183,9 @@ Fliplet.Widget.instance('email-verification', function(data) {
               var where = {
                 code: vmData.code
               };
-  
+
               where[columns[type + 'Match']] = vmData.email;
-  
+
               Fliplet.Session.get()
                 .then(function() {
                   dataSource.validate({
@@ -169,7 +194,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
                   })
                     .then(function(entry) {
                       var user = app.createUserProfile(entry);
-  
+
                       return Promise.all([
                         Fliplet.App.Storage.set({
                           'fl-chat-source-id': entry.dataSourceId,
@@ -219,7 +244,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
             category: 'email_verification',
             action: 'request_skip'
           });
-  
+
           this.showVerify();
         },
         resendCode: function() {
@@ -227,13 +252,13 @@ Fliplet.Widget.instance('email-verification', function(data) {
             category: 'email_verification',
             action: 'code_resend'
           });
-  
+
           Fliplet.DataSources.connect(dataSourceId, {
             offline: false
           })
             .then(function(dataSource) {
               var where = {};
-  
+
               where[columns[type + 'Match']] = vmData.email;
               dataSource.sendValidation({
                 type: type,
@@ -252,11 +277,11 @@ Fliplet.Widget.instance('email-verification', function(data) {
         },
         changeState: function(state) {
           var $vm = this;
-  
+
           setTimeout(function nextTick() {
             // Wait for keyboard to be dismissed before calculating element height
             calculateElHeight($($vm.$el).find('.state[data-state=' + state + ']'));
-  
+
             setTimeout(function() {
               $('[data-email-verification-id="' + vmData.widgetId + '"]').animate({
                 scrollLeft: 0
@@ -267,15 +292,15 @@ Fliplet.Widget.instance('email-verification', function(data) {
       },
       mounted: function() {
         var vm = this;
-  
+
         // After half a second show auth
         setTimeout(function() {
           var selector = '.fl-email-verification[data-email-verification-id="' + vmData.widgetId + '"]';
-  
+
           vmData.auth = true;
           calculateElHeight($(selector).find('.state[data-state=auth]'));
           vmData.loading = false;
-  
+
           verificationReady({
             instance: vm,
             setEmail: function(email) {
@@ -286,7 +311,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
             }
           });
         }, 500);
-  
+
         // Check if user is already verified
         if (!Fliplet.Env.get('disableSecurity')) {
           Fliplet.User.getCachedSession()
@@ -294,21 +319,21 @@ Fliplet.Widget.instance('email-verification', function(data) {
               if (!session || !session.accounts) {
                 return Promise.reject(T('widgets.login.emailVerification.errors.sessionNotFound'));
               }
-  
+
               var dataSource = session.accounts.dataSource || [];
               var verifiedAccounts = dataSource.filter(function(dataSourceAccount) {
                 return dataSourceAccount.dataSourceId === dataSourceId;
               });
-  
+
               if (!verifiedAccounts.length) {
                 return Promise.reject(T('widgets.login.emailVerification.errors.sessionNotFound'));
               }
-  
+
               // Update stored email address based on retrieved session
               var entry = verifiedAccounts[0];
               var email = entry.data[columns[type + 'Match']];
               var user = app.createUserProfile(entry);
-  
+
               return Promise.all([
                 Fliplet.App.Storage.set({
                   'fl-chat-source-id': entry.dataSourceId,
@@ -323,39 +348,39 @@ Fliplet.Widget.instance('email-verification', function(data) {
             })
             .then(function() {
               var navigate = Fliplet.Navigate.to(data.action);
-  
+
               if (typeof navigate === 'object' && typeof navigate.then === 'function') {
                 return navigate;
               }
-  
+
               return Promise.resolve();
             })
             .catch(function(error) {
               console.warn(error);
             });
         }
-  
+
         // Check if user was already around...
         Fliplet.App.Storage.get('user-email')
           .then(function(email) {
             if (!email) {
               return;
             }
-  
+
             vmData.email = email;
             vmData.storedEmail = email;
           });
-  
+
         // Check if there are errors from SAML2 features
         if (Fliplet.Navigate.query.error) {
           vmData.securityError = Fliplet.Navigate.query.error;
         }
-  
+
         // Online/ Offline handlers
         Fliplet.Navigator.onOnline(function() {
           vmData.deviceOffline = false;
         });
-  
+
         Fliplet.Navigator.onOffline(function() {
           vmData.deviceOffline = true;
         });

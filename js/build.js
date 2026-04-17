@@ -314,7 +314,7 @@ Fliplet.Widget.instance('email-verification', function(data) {
 
         // Check if user is already verified
         if (!Fliplet.Env.get('disableSecurity')) {
-          Fliplet.User.getCachedSession()
+          Fliplet.User.getCachedSession({ force: true })
             .then(function(session) {
               if (!session || !session.accounts) {
                 return Promise.reject(T('widgets.login.emailVerification.errors.sessionNotFound'));
@@ -347,6 +347,10 @@ Fliplet.Widget.instance('email-verification', function(data) {
               ]);
             })
             .then(function() {
+              if (typeof data.action === 'undefined') {
+                return Promise.reject(T('widgets.login.emailVerification.errors.redirectMissing'));
+              }
+
               var navigate = Fliplet.Navigate.to(data.action);
 
               if (typeof navigate === 'object' && typeof navigate.then === 'function') {

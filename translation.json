@@ -29,7 +29,8 @@
         "errors": {
           "emailInvalid": "Please enter a valid email.",
           "emailVerificationFailed": "Error verifying email",
-          "sessionNotFound": "Login session not found"
+          "sessionNotFound": "Login session not found",
+          "redirectMissing": "Screen redirect is not set up."
         }
       }
     }

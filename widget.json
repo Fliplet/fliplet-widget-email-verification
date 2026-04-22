@@ -13,7 +13,6 @@
   "interface": {
     "dependencies": [
       "fliplet-core",
-      "fliplet-utils",
       "handlebars",
       "fliplet-datasources",
       "fliplet-studio-ui",
@@ -30,7 +29,6 @@
     "dependencies": [
       "vue.js",
       "fliplet-core",
-      "fliplet-utils",
       "bootstrap-css",
       "handlebars",
       "lodash",

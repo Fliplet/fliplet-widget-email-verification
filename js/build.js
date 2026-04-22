@@ -11,10 +11,10 @@ Fliplet.Widget.instance('email-verification', function(data) {
   verificationInstances.push(verificationPromise);
 
   var type = 'email';
-  var dataSourceId = Fliplet.Utils.hasIn(data, 'validation.dataSourceQuery.dataSourceId')
+  var dataSourceId = _.hasIn(data, 'validation.dataSourceQuery.dataSourceId')
     ? data.validation.dataSourceQuery.dataSourceId
     : null;
-  var columns = Fliplet.Utils.hasIn(data, 'validation.dataSourceQuery.columns')
+  var columns = _.hasIn(data, 'validation.dataSourceQuery.columns')
     ? data.validation.dataSourceQuery.columns
     : null;
 
@@ -443,7 +443,7 @@ Fliplet.Verification = Fliplet.Verification || {};
 Fliplet.Verification.Email = {
   get: function() {
     return Promise.all(verificationInstances).then(function(instances) {
-      return Fliplet.Utils.first(instances);
+      return _.first(instances);
     });
   }
 };

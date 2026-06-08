@@ -209,6 +209,11 @@ Fliplet.Widget.instance('email-verification', function(data) {
                         return Fliplet.Hooks.run('onUserVerified', {
                           entry: entry
                         });
+                      }).then(function() {
+                        // Refresh the cached session so screens that read
+                        // Fliplet.Session.get() immediately after the post-validate
+                        // navigation see the logged-in state (PS-1990).
+                        return Fliplet.User.getCachedSession({ force: true });
                       });
                     })
                     .then(function() {
